@@ -5,15 +5,15 @@ Hendra virus was discovered in September 1994 when it caused the deaths of thirt
 
 Rail and a stable hand were involved in nursing the index case, and both fell ill with an influenza-like illness within one week of the first horse’s death. The stable hand recovered while Mr Rail died of respiratory and renal failure.
 
-The script, named in his honor, is used to easily send the cryptographic chechsum of a suspected compromised file to Virus Total for comparison with other reported cases of known malware.
+The script, named in his honor, is used to easily send the cryptographic checksum of a suspected compromised file to Virus Total for comparison with other reported cases of known malware.
 
 ###Requirements
 
 The following Ruby Gems are required:
 <ul>
-  <li>ruby</li>
-	<li>json</li>
-	<li>rest-client</li>
+<li>ruby</li>
+<li>json</li>
+<li>rest-client</li>
 </ul>
 
 You also require a free public api key from <a href="http://www.virustotal.com" target="_blank">virustotal.com</a> that will allow you to compare the hash values of your suspect files against the Virus Total database.
