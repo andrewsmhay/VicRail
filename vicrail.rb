@@ -22,7 +22,6 @@ sha1 = Digest::SHA1.new
 filename.each do |hashmash|
   digest_sha1 << Digest::SHA1.file(hashmash).hexdigest
 end
-puts digest_sha1.inspect
 
 sha256 = Digest::SHA256.new
 filename.each do |hashmash256|
