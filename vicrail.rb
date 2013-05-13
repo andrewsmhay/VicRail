@@ -3,7 +3,7 @@ require 'uirusu'
 require 'digest'
 
 # Virus total API key
-VT_API_KEY = "f080f565318041e36719c56015093ec3635d58fa0646b5a7af6411399d06ad55"
+VT_API_KEY = ""
 digest_sha1 = []
 digest_sha256 = []
 
@@ -19,8 +19,8 @@ filename.each do |hashmash|
 end
 
 sha256 = Digest::SHA256.new
-filename.each do |hashmash|
-  digest_sha256 = Digest::SHA256.file(hashmash).hexdigest
+filename.each do |hashmash256|
+  digest_sha256 = Digest::SHA256.file(hashmash256).hexdigest
 end
 
 puts "==== VirusTotal - www.virustotal.com ===="
