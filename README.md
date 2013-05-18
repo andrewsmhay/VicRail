@@ -11,32 +11,22 @@ The script, named in his honor, is used to easily send the cryptographic checksu
 
 The following Ruby Gems are required:
 <ul>
-<li>ruby</li>
-<li>json</li>
-<li>rest-client</li>
+<li>rubygems</li>
+<li>uirusu</li>
+<li>digest</li>
 </ul>
 
 You also require a free public api key from <a href="http://www.virustotal.com" target="_blank">virustotal.com</a> that will allow you to compare the hash values of your suspect files against the Virus Total database.
 
 ###Usage
 
-<pre><code># <b>ruby vicrail.rb /path/to/file1 /path/to/file2 /path/to/file3 ... /path/to/file234</b>
-
-e.g.
-
-# <b>ruby vicrail.rb /usr/sbin/httpd /usr/sbin/sshd</b>
-/usr/sbin/httpd
-6ac38797cab8059c405599eff135506cfe166edf158c225afc06fd910833f0a5: Scanner: - Result: The requested resource is not among the finished, queued or pending scans
-
-/usr/sbin/sshd
-b9aaa4306e521928d8f5812b0e0df26325bab42cfe670bfa2e64a33141ca0aa7: Scanner: - Result: The requested resource is not among the finished, queued or pending scans
-</code></pre>
+<pre><code># <b>ruby vicrail.rb /path/to/file1 /path/to/file2 /path/to/file3 ... /path/to/file234</b></code></pre>
 
 If the hash of the file is already in the database, you'll likely see something similar to:
 <pre><code>
-ruby vicrail.rb eicar.com 
+ruby vicrail.rb data/eicar.com 
 ==== VirusTotal - www.virustotal.com ====
-eicar.com - sha1
+data/eicar.com - sha1
 Hash identified in the database...
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: TotalDefense Result: the EICAR test string
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: MicroWorld-eScan Result: EICAR-Test-File
@@ -53,6 +43,7 @@ Hash identified in the database...
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: Norman Result: EICAR_Test_file_not_a_virus!
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: ByteHero Result: Nothing detected
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: TrendMicro-HouseCall Result: Eicar_test_file
+3395856ce81f2b7382dee72602f798b642f14140: Scanner: Avast Result: EICAR Test-NOT virus!!!
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: eSafe Result: EICAR Test File
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: ClamAV Result: Eicar-Test-Signature
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: Kaspersky Result: EICAR-Test-File
@@ -79,13 +70,14 @@ Hash identified in the database...
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: VBA32 Result: EICAR-Test-File
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: PCTools Result: Virus.DOS.EICAR_test_file
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: ESET-NOD32 Result: Eicar test file
+3395856ce81f2b7382dee72602f798b642f14140: Scanner: Rising Result: EICAR-Test-File
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: Ikarus Result: EICAR-ANTIVIRUS-TESTFILE
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: Fortinet Result: EICAR_TEST_FILE
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: AVG Result: EICAR_Test
 3395856ce81f2b7382dee72602f798b642f14140: Scanner: Panda Result: EICAR-AV-TEST-FILE
 
 
-eicar.com - sha256
+data/eicar.com - sha256
 Hash identified in the database...
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: TotalDefense Result: the EICAR test string
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: MicroWorld-eScan Result: EICAR-Test-File
@@ -102,6 +94,7 @@ Hash identified in the database...
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: Norman Result: EICAR_Test_file_not_a_virus!
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: ByteHero Result: Nothing detected
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: TrendMicro-HouseCall Result: Eicar_test_file
+275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: Avast Result: EICAR Test-NOT virus!!!
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: eSafe Result: EICAR Test File
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: ClamAV Result: Eicar-Test-Signature
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: Kaspersky Result: EICAR-Test-File
@@ -128,6 +121,7 @@ Hash identified in the database...
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: VBA32 Result: EICAR-Test-File
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: PCTools Result: Virus.DOS.EICAR_test_file
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: ESET-NOD32 Result: Eicar test file
+275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: Rising Result: EICAR-Test-File
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: Ikarus Result: EICAR-ANTIVIRUS-TESTFILE
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: Fortinet Result: EICAR_TEST_FILE
 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f: Scanner: AVG Result: EICAR_Test
@@ -135,12 +129,26 @@ Hash identified in the database...
 
 
 ==== Shadowserver - http://bin-test.shadowserver.org/ ====
-eicar.com - sha1
+data/eicar.com - sha1
 Hash identified in the database...
 3395856ce81f2b7382dee72602f798b642f14140 {"source": "NIST", "filename": "eicar.com.txt", "crc32": "6851CF3C", "product_name": "Linux Format", "mfg_name": "Linux Format", "os_name": "Linux", "language": "English", "source_version": "$version", "product_version": "April 2005", "os_version": "Generic", "application_type": "Software", "filesize": "68", "os_mfg": "Linux"}
 
+==== Open Malware - http://oc.gtisc.gatech.edu:8080/ ====
+data/eicar.com - sha256
+Hash identified in the database...
+MD5: 44d88612fea8a8f36de82e1278abb02f
+SHA1: 3395856ce81f2b7382dee72602f798b642f14140
+SHA256: 275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f
+
+OCID: 1729361806
+Original Filename: EICAR-Test-File
+File Added: 2007-01-15 12:50:57.013714
+ClamAV: Eicar-Test-Signature 
+Kaspersky: EICAR-Test-File
+BitDefender: EICAR-Test-File (not a virus)
+
 ==== Team Cymru Malware Hash Registry - http://www.team-cymru.org/Services/MHR/ ====
-eicar.com - sha1
+data/eicar.com - sha1
 Hash identified in the database...
 3395856ce81f2b7382dee72602f798b642f14140 1259633424 83
 
