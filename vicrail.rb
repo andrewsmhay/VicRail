@@ -12,6 +12,16 @@ x = 0
 y = 0
 a = 0
 b = 0
+c = 0
+md5val = 0
+sha1val = 0
+sha256val = 0
+ocidval = 0
+orignameval = ""
+fileaddval = ""
+clamavvalname = ""
+kasavvalname = ""
+bitavvalname = ""
 
 ARGV.each do |arg|
   filename << arg
@@ -72,6 +82,41 @@ filename.each do |hashmashss|
     puts full_url
     puts "\n"
     b = b + 1
+  end
+end
+
+puts "==== Open Malware - http://oc.gtisc.gatech.edu:8080/ ===="
+filename.each do |hashmashom|
+  puts "#{hashmashom} - sha256"
+  full_url = `curl --silent http://oc.gtisc.gatech.edu:8080/search.cgi?search=#{digest_sha256[c]}`
+  if full_url =~ /Found \d{1,} Result\(s\) for/
+    puts "Hash identified in the database...\n"
+    md5val = "#{full_url}"[/MD5:<\/b>\s<\/td>\s<td id="checksum">\s(.*)/,1]
+    sha1val = "#{full_url}"[/SHA1:<\/b>\s<\/td>\s<td id="checksum">\s(.*)/,1]
+    sha256val = "#{full_url}"[/SHA256:<\/b>\s<\/td>\s<td id="checksum">\s(.*)/,1]
+    ocidval = "#{full_url}"[/OCID:<\/b>\s<\/td>\s<td id="checksum">\s(.*)/,1]
+    orignameval = "#{full_url}"[/Original Filename:<\/b>\s<\/td>\s<td id="checksum">\s(.*)/,1]
+    fileaddval = "#{full_url}"[/Added:<\/b>\s<\/td>\s<td>\s(.*)/,1]
+    clamavvalname = "#{full_url}"[/<b>ClamAV:<\/b>\s<\/td>\s<td>\s(.*)/,1]
+    kasavvalname = "#{full_url}"[/<b>Kaspersky:<\/b>\s<\/td>\s<td>\s(.*)/,1]
+    bitavvalname = "#{full_url}"[/<b>BitDefender:<\/b>\s<\/td>\s<td>\s(.*)/,1]
+    puts "\n"
+    puts "MD5: #{md5val}"
+    puts "SHA1: #{sha1val}"
+    puts "SHA256: #{sha256val}"
+    puts "\n"
+    puts "OCID: #{ocidval}"
+    puts "Original Filename: #{orignameval}"
+    puts "File Added: #{fileaddval}"
+    puts "ClamAV: #{clamavvalname}"
+    puts "Kaspersky: #{kasavvalname}"
+    puts "BitDefender: #{bitavvalname}"
+    puts "\n"
+    c = c + 1
+  else 
+    puts "The hash was not found in the database...\n"
+    puts "\n"
+    c = c + 1
   end
 end
 
