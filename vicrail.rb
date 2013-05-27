@@ -7,12 +7,14 @@ VT_API_KEY = ""
 
 digest_sha1 = []
 digest_sha256 = []
+digest_mdfive = []
 filename = []
 x = 0
 y = 0
 a = 0
 b = 0
 c = 0
+d = 0
 md5val = 0
 sha1val = 0
 sha256val = 0
@@ -36,6 +38,11 @@ end
 sha256 = Digest::SHA256.new
 filename.each do |hashmash256|
   digest_sha256 << Digest::SHA256.file(hashmash256).hexdigest
+end
+
+mdfive = Digest::MD5.new
+filename.each do |hashmash5|
+  digest_mdfive << Digest::MD5.file(hashmash5).hexdigest
 end
 
 puts "==== VirusTotal - www.virustotal.com ===="
@@ -133,5 +140,30 @@ filename.each do |hashmashcym|
     puts results
     puts "\n"
     a = a + 1
+  end
+end
+
+puts "==== Simseer Search - http://http://www.simseer.com/ ===="
+filename.each do |hashmash5|
+  puts "#{hashmash5} - md5"
+  full_url = `curl --silent http://www.simseer.com/webservices/SimseerSearch/SimseerSearch-print-report.php?h=#{digest_mdfive[d]}`
+  #full_url_nul = "#{full_url}"[/No such hash sorry :\(/,1]
+  if full_url =~ /AV Results<\/h2>\sAV doesn't report it as malicious.\s/
+    puts "The hash was not found in the database...\n"
+    puts "\n"
+    d = d + 1
+  else 
+    puts "Hash identified in the database...\n"
+    fname_sim = "#{full_url}"[/Filename<\/td><td>(.*)<\/td><\/tr>/,1]
+    thresh_sim = "#{full_url}"[/Threshold<\/td><td>(.*)<\/td><\/tr>/,1]
+    avres_sim = "#{full_url}"[/AV reports it as <font color="red">(.*)<\/font>/,1]
+    heur_sim = "#{full_url}"[/Heuristics<\/h2>\s(.*)\s/,1]
+    puts "Filename: #{fname_sim}"
+    puts "Threshold: #{thresh_sim}"
+    puts "AV reports it as: #{avres_sim}"
+    puts "Heuristics: #{heur_sim}"
+    #puts full_url
+    puts "\n"
+    d = d + 1
   end
 end
